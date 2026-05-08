@@ -1,0 +1,6 @@
+diff --git a/dist/flatpak/picocrypt-ng-launcher.sh b/dist/flatpak/picocrypt-ng-launcher.sh
+--- a/dist/flatpak/picocrypt-ng-launcher.sh
++++ b/dist/flatpak/picocrypt-ng-launcher.sh
+@@ -4 +4 @@
+-backend="${PICOCRYPT_BACKEND:-auto}"
++backend="${PICOCRYPT_BACKEND:-x11}"
