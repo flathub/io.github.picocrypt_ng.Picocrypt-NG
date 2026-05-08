@@ -7,8 +7,7 @@ sdk-extensions:
 command: picocrypt-ng-launcher
 finish-args:
   - --share=ipc
-  - --socket=wayland
-  - --socket=fallback-x11
+  - --socket=x11
   - --filesystem=home
   - --device=dri
 build-options:
@@ -28,13 +27,15 @@ modules:
       - install -Dm00755 dist/flatpak/picocrypt-ng-launcher.sh $FLATPAK_DEST/bin/picocrypt-ng-launcher
       - ln -sf picocrypt-ng-launcher $FLATPAK_DEST/bin/picocrypt-ng-gui
       - install -Dm00644 images/key.svg $FLATPAK_DEST/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
-      - install -Dm00644 dist/flatpak/io.github.picocrypt_ng.Picocrypt-NG.desktop $FLATPAK_DEST/share/applications/$FLATPAK_ID.desktop
-      - install -Dm00644 dist/flatpak/io.github.picocrypt_ng.Picocrypt-NG.metainfo.xml $FLATPAK_DEST/share/metainfo/$FLATPAK_ID.metainfo.xml
+      - install -Dm00644 dist/linux/io.github.picocrypt_ng.Picocrypt-NG.desktop $FLATPAK_DEST/share/applications/$FLATPAK_ID.desktop
+      - install -Dm00644 dist/linux/io.github.picocrypt_ng.Picocrypt-NG.metainfo.xml $FLATPAK_DEST/share/metainfo/$FLATPAK_ID.metainfo.xml
       - install -Dm0644 LICENSE -t $FLATPAK_DEST/share/licenses/$FLATPAK_ID/
     sources:
       - type: archive
-        url: "https://github.com/Picocrypt-NG/Picocrypt-NG/archive/refs/tags/2.07.tar.gz"
-        sha256: fec5fe02048c24423ad3054e3ad220f43d1ef357114a05787c71277670993dd5
+        url: "https://github.com/Picocrypt-NG/Picocrypt-NG/archive/refs/tags/2.09.tar.gz"
+        sha256: 993d6ca8a0093c48ad53f1c0e78bda9c081ff7fa6a7a45ec722c2558db79a6c0
+      - type: patch
+        path: prefer-x11-default.patch
       - type: file
         path: modules.txt
         dest: src/vendor
