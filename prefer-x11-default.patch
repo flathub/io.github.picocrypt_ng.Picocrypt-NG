@@ -1,6 +1,14 @@
 diff --git a/dist/flatpak/picocrypt-ng-launcher.sh b/dist/flatpak/picocrypt-ng-launcher.sh
 --- a/dist/flatpak/picocrypt-ng-launcher.sh
 +++ b/dist/flatpak/picocrypt-ng-launcher.sh
-@@ -4 +4 @@
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ set -eu
+-
++
 -backend="${PICOCRYPT_BACKEND:-auto}"
 +backend="${PICOCRYPT_BACKEND:-x11}"
+-
++
+ case "$backend" in
+ wayland)
