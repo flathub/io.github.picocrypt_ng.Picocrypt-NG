@@ -32,8 +32,8 @@ modules:
       - install -Dm0644 LICENSE -t $FLATPAK_DEST/share/licenses/$FLATPAK_ID/
     sources:
       - type: archive
-        url: "https://github.com/Picocrypt-NG/Picocrypt-NG/archive/refs/tags/2.11.tar.gz"
-        sha256: 1496557fba8f113db91ffd9ab8ac4aaf4a80c3e3e74fc6ac63ccdc15a3b18db7
+        url: "https://github.com/Picocrypt-NG/Picocrypt-NG/archive/refs/tags/2.14.tar.gz"
+        sha256: 1d97cbb0ed8776b310c14af049e8e4d267b4135ebee89232b127fdb87c6cc246
       - type: patch
         path: prefer-x11-default.patch
       - type: file
