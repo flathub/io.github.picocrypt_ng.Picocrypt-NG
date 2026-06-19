@@ -59,12 +59,12 @@ fyne.io/systray/internal/generated/notifier
 ## explicit; go 1.18
 github.com/BurntSushi/toml
 github.com/BurntSushi/toml/internal
+# github.com/Picocrypt-NG/serpent v0.1.0
+## explicit; go 1.26.0
+github.com/Picocrypt-NG/serpent
 # github.com/Picocrypt/infectious v0.0.0-20250713161924-ae9b3ccb49d7
 ## explicit; go 1.24.0
 github.com/Picocrypt/infectious
-# github.com/Picocrypt/serpent v0.0.0-20240830233833-9ad6ab254fd7
-## explicit
-github.com/Picocrypt/serpent
 # github.com/Picocrypt/zxcvbn-go v0.0.0-20250412183938-d59695960527
 ## explicit; go 1.24.0
 github.com/Picocrypt/zxcvbn-go
@@ -82,6 +82,12 @@ github.com/clipperhouse/uax29/v2/graphemes
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
+# github.com/dweymouth/fyne-tooltip v0.4.0
+## explicit; go 1.21
+github.com/dweymouth/fyne-tooltip
+github.com/dweymouth/fyne-tooltip/internal
+github.com/dweymouth/fyne-tooltip/internal/shadow
+github.com/dweymouth/fyne-tooltip/widget
 # github.com/fredbi/uri v1.1.1
 ## explicit; go 1.19
 github.com/fredbi/uri
@@ -156,8 +162,6 @@ github.com/jeandeaual/go-locale
 # github.com/jsummers/gobmp v0.0.0-20230614200233-a9de23ed2e25
 ## explicit
 github.com/jsummers/gobmp
-# github.com/kr/text v0.2.0
-## explicit
 # github.com/mattn/go-runewidth v0.0.24
 ## explicit; go 1.20
 github.com/mattn/go-runewidth
@@ -263,6 +267,7 @@ golang.org/x/text/language
 golang.org/x/text/runes
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
+golang.org/x/text/unicode/norm
 # gopkg.in/yaml.v3 v3.0.1
 ## explicit
 gopkg.in/yaml.v3
