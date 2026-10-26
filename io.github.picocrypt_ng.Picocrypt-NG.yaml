@@ -35,7 +35,7 @@ modules:
       - install -Dm00644 dist/linux/io.github.picocrypt_ng.Picocrypt-NG.metainfo.xml $FLATPAK_DEST/share/metainfo/$FLATPAK_ID.metainfo.xml
       - install -Dm0644 LICENSE -t $FLATPAK_DEST/share/licenses/$FLATPAK_ID/
     sources:
-      # Unreleased local candidate. Remote retrieval requires publication first.
+      # Provisional 3.0 review snapshot; replace with the reviewed release source.
       - type: git
         url: https://github.com/Picocrypt-NG/Picocrypt-NG.git
         commit: 35b5824c68ebc2e5734e26c716e601d02ae2299e

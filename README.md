@@ -23,10 +23,10 @@ encryption and decryption before creating output. The permission does not allow
 the app to change cgroup limits or membership.
 
 The source pins unreleased local candidate commit
-`35b5824c68ebc2e5734e26c716e601d02ae2299e`. This commit is not yet available from
-the public repository. Remote source retrieval and official Flathub acceptance
-remain release gates. The launcher comes directly from this source; it needs no
-packaging patch.
+`35b5824c68ebc2e5734e26c716e601d02ae2299e`. This is a provisional review snapshot,
+not a stable 3.0 release pin. A reviewed release source and official Flathub
+acceptance remain release gates. The launcher comes directly from this source;
+it needs no packaging patch.
 
 For local validation, export that exact tracked commit with `git archive`, record
 the archive's SHA-256, and replace only the application's Git source in a separate
