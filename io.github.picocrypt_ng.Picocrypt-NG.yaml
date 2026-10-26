@@ -1,29 +1,33 @@
 app-id: io.github.picocrypt_ng.Picocrypt-NG
 runtime: org.freedesktop.Platform
-runtime-version: "25.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.golang
 command: picocrypt-ng-launcher
 finish-args:
   - --share=ipc
-  - --socket=x11
+  # Expose X11 only when Wayland is unavailable.
+  - --socket=fallback-x11
+  - --socket=wayland
   - --filesystem=home
+  # PCV3 admission reads effective memory limits; missing cgroup facts fail closed.
+  - --filesystem=/sys/fs/cgroup:ro
   - --device=dri
 build-options:
+  prepend-path: /app/lib/sdk/golang/bin
   env:
-    - GOBIN=/app/bin
-    - GOROOT=/usr/lib/sdk/golang
-    - CGO_ENABLED=1
-    - GOPROXY=off
+    GOBIN: /app/bin
+    GOROOT: /app/lib/sdk/golang
+    GOTOOLCHAIN: local
+    CGO_ENABLED: "1"
+    GOPROXY: "off"
 modules:
+  - go-toolchain.yaml
   - name: picocrypt-ng
     buildsystem: simple
     build-commands:
-      - cd src && $GOROOT/bin/go build -tags wayland -mod=vendor -ldflags="-s -w" -o picocrypt-ng-wayland ./cmd/picocrypt
-      - cd src && $GOROOT/bin/go build -mod=vendor -ldflags="-s -w" -o picocrypt-ng-x11 ./cmd/picocrypt
-      - install -Dm00755 src/picocrypt-ng-wayland $FLATPAK_DEST/bin/picocrypt-ng-wayland
-      - install -Dm00755 src/picocrypt-ng-x11 $FLATPAK_DEST/bin/picocrypt-ng-x11
+      - test "$("$GOROOT/bin/go" env GOVERSION)" = go1.27.3
+      - cd src && $GOROOT/bin/go build -tags flatpak,migrated_fynedo -mod=vendor -ldflags="-s -w" -o picocrypt-ng ./cmd/picocrypt
+      - install -Dm00755 src/picocrypt-ng $FLATPAK_DEST/bin/picocrypt-ng
       - install -Dm00755 dist/flatpak/picocrypt-ng-launcher.sh $FLATPAK_DEST/bin/picocrypt-ng-launcher
       - ln -sf picocrypt-ng-launcher $FLATPAK_DEST/bin/picocrypt-ng-gui
       - install -Dm00644 images/key.svg $FLATPAK_DEST/share/icons/hicolor/scalable/apps/$FLATPAK_ID.svg
@@ -31,11 +35,10 @@ modules:
       - install -Dm00644 dist/linux/io.github.picocrypt_ng.Picocrypt-NG.metainfo.xml $FLATPAK_DEST/share/metainfo/$FLATPAK_ID.metainfo.xml
       - install -Dm0644 LICENSE -t $FLATPAK_DEST/share/licenses/$FLATPAK_ID/
     sources:
-      - type: archive
-        url: "https://github.com/Picocrypt-NG/Picocrypt-NG/archive/refs/tags/2.16.tar.gz"
-        sha256: d7f1ba6e723471715f753d9e49ca5b2705d27716ce4be99abf742228184d1d1d
-      - type: patch
-        path: prefer-x11-default.patch
+      # Provisional 3.0 review snapshot; replace with the reviewed release source.
+      - type: git
+        url: https://github.com/Picocrypt-NG/Picocrypt-NG.git
+        commit: 35b5824c68ebc2e5734e26c716e601d02ae2299e
       - type: file
         path: modules.txt
         dest: src/vendor
