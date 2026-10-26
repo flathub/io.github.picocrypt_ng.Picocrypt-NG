@@ -1,10 +1,16 @@
 The manifest builds Picocrypt NG with pinned Go 1.27.3 and offline vendored
 dependencies. Fyne 2.8.2 supplies native Wayland and X11 in the same binary.
-`PICOCRYPT_BACKEND=x11|wayland` selects a backend; the default `auto` keeps Fyne's
-runtime detection and its X11 fallback for compositors without server-side
-decorations. Both display sockets are intentional: `fallback-x11` would hide
-X11 in a Wayland session and disable that upstream workaround for window resizing
-crashes/hangs ([Fyne #6392](https://github.com/fyne-io/fyne/pull/6392)).
+The sandbox grants `wayland` and `fallback-x11`: X11 is available only when
+Wayland is unavailable. `PICOCRYPT_BACKEND=x11|wayland` selects among the backends
+accessible inside the sandbox; the default `auto` keeps Fyne's runtime detection.
+An override cannot restore an X11 socket hidden by Flatpak.
+
+This policy disables Fyne 2.8.2's X11 workaround inside Wayland sessions without
+server-side decorations. Native Wayland window resizing may therefore encounter
+the upstream issue ([Fyne #6392](https://github.com/fyne-io/fyne/pull/6392)); full
+GUI operations on those compositors remain a release-validation limit.
+The corresponding standalone GitHub release, once available, is an alternative
+for affected systems.
 
 The `flatpak` build tag enables Fyne's URL and file-dialog portals. Filesystem
 home access is retained for the application's file, folder, drag-and-drop, and
@@ -38,11 +44,10 @@ screenshot, rewrites the catalog URL, and exports a local screenshot ref. This
 does not publish the screenshot. Screenshot composition may need network access
 even when the application sources are already cached.
 
-Local validation on 2026-10-26 with `flatpak-builder-lint` version
-`3.0.0.post798.dev0+5181352` reports
-`finish-args-contains-both-x11-and-wayland` and
-`finish-args-home-filesystem-access`. The permissions retain the existing
-backend fallback and file workflows described above. The linter also recommends
+Manifest validation on 2026-10-26 with `flatpak-builder-lint` version
+`3.0.0.post798.dev0+5181352` retains
+`finish-args-home-filesystem-access`. The home permission preserves the existing
+file workflows described above. The linter also recommends
 Freedesktop 26.08; this preparation keeps the existing 25.08 runtime.
 These findings have not received Flathub approval. Follow the
 [Flathub permission and linter review process](https://docs.flathub.org/docs/for-app-authors/linter)

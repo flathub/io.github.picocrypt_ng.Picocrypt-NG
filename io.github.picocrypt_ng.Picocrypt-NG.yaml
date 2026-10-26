@@ -5,9 +5,8 @@ sdk: org.freedesktop.Sdk
 command: picocrypt-ng-launcher
 finish-args:
   - --share=ipc
-  # Fyne 2.8.2 falls back to X11 on compositors without server-side decorations.
-  # Keep that workaround and the explicit PICOCRYPT_BACKEND=x11 override usable.
-  - --socket=x11
+  # Expose X11 only when Wayland is unavailable.
+  - --socket=fallback-x11
   - --socket=wayland
   - --filesystem=home
   # PCV3 admission reads effective memory limits; missing cgroup facts fail closed.
