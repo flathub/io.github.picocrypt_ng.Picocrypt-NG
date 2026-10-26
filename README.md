@@ -1,5 +1,6 @@
-The manifest builds Picocrypt NG with pinned Go 1.27.3 and offline vendored
-dependencies. Fyne 2.8.2 supplies native Wayland and X11 in the same binary.
+The manifest builds Picocrypt NG against the Freedesktop 26.08 platform and SDK,
+with pinned Go 1.27.3 and offline vendored dependencies. Fyne 2.8.2 supplies
+native Wayland and X11 in the same binary.
 The sandbox grants `wayland` and `fallback-x11`: X11 is available only when
 Wayland is unavailable. `PICOCRYPT_BACKEND=x11|wayland` selects among the backends
 accessible inside the sandbox; the default `auto` keeps Fyne's runtime detection.
@@ -47,8 +48,7 @@ even when the application sources are already cached.
 Manifest validation on 2026-10-26 with `flatpak-builder-lint` version
 `3.0.0.post798.dev0+5181352` retains
 `finish-args-home-filesystem-access`. The home permission preserves the existing
-file workflows described above. The linter also recommends
-Freedesktop 26.08; this preparation keeps the existing 25.08 runtime.
+file workflows described above. The platform and SDK use Freedesktop 26.08.
 These findings have not received Flathub approval. Follow the
 [Flathub permission and linter review process](https://docs.flathub.org/docs/for-app-authors/linter)
 before submission. Permission moderation and linter exceptions are separate
