@@ -1,0 +1,29 @@
+# Keep this version in sync with mise.toml and src/go.mod.
+name: go-toolchain
+buildsystem: simple
+build-options:
+  env:
+    GOROOT: /app/lib/sdk/golang
+    GOTOOLCHAIN: local
+    GOPROXY: "off"
+build-commands:
+  - install -d /app/lib/sdk/golang
+  - cp -a golang/. /app/lib/sdk/golang/
+  - test "$(/app/lib/sdk/golang/bin/go env GOVERSION)" = go1.27.4
+cleanup:
+  - '*'
+sources:
+  - type: archive
+    url: https://go.dev/dl/go1.27.4.linux-amd64.tar.gz
+    sha256: 7226736c2339719cda28fbf3a54d71aa63bcefe376e98cef00034268dab24840
+    dest: golang
+    strip-components: 1
+    only-arches:
+      - x86_64
+  - type: archive
+    url: https://go.dev/dl/go1.27.4.linux-arm64.tar.gz
+    sha256: 3392582988a273a87ab5043ee1b2c9c17a2c3c00580bf9326c47a2e0aaaeac92
+    dest: golang
+    strip-components: 1
+    only-arches:
+      - aarch64
